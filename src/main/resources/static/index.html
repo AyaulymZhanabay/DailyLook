@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>DailyLook 👗</title>
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          background: #f4f6fb;
+          margin: 0;
+          padding: 0;
+        }
+        .container {
+          max-width: 700px;
+          margin: 60px auto;
+          background: white;
+          padding: 30px;
+          border-radius: 16px;
+          box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+          text-align: center;
+        }
+        h1 {
+          margin-bottom: 10px;
+        }
+        select, button {
+          padding: 10px;
+          margin: 10px;
+          font-size: 16px;
+        }
+        button {
+          background: #6c63ff;
+          color: white;
+          border: none;
+          border-radius: 8px;
+          cursor: pointer;
+        }
+        button:hover {
+          background: #554ff2;
+        }
+        .result {
+          margin-top: 30px;
+          font-size: 18px;
+          font-weight: bold;
+          color: #333;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>DailyLook 👗</h1>
+    <p>Choose season and occasion:</p>
+
+    <select id="season">
+        <option value="Summer">Summer</option>
+        <option value="Winter">Winter</option>
+        <option value="Autumn">Autumn</option>
+        <option value="Spring">Spring</option>
+    </select>
+
+    <select id="occasion">
+        <option value="Casual">Casual</option>
+        <option value="Formal">Formal</option>
+        <option value="Sport">Sport</option>
+    </select>
+
+    <br/>
+    <button onclick="getRecommendation()">Get recommendation</button>
+
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function getRecommendation() {
+      const season = document.getElementById("season").value;
+      const occasion = document.getElementById("occasion").value;
+
+      fetch(`http://localhost:8080/recommend?season=${season}&occasion=${occasion}`)
+        .then(res => res.text())
+        .then(text => {
+          document.getElementById("result").innerText = text;
+        });
+    }
+</script>
+</body>
+</html>
